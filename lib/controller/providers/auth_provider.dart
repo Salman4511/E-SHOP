@@ -1,9 +1,13 @@
+// ignore_for_file: avoid_print
+
+import 'package:e_shop/model/user_model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   User? _user;
 
   User? get user => _user;
@@ -14,10 +18,16 @@ class AuthProvider with ChangeNotifier {
         email: email,
         password: password,
       );
-      await FirebaseFirestore.instance.collection('users').doc(_user!.uid).set({
-        'name': name,
-        'email': email,
-      });
+      String id = DateTime.now().microsecondsSinceEpoch.toString();
+
+      UserModel user = UserModel(
+        id: id,
+        name: name,
+        email: email,
+      );
+      await firestore.collection("users").doc(id).set(user.toMap());
+    } on Exception catch (e) {
+      print("the error is found $e");
       notifyListeners();
     } catch (e) {
       print(e);

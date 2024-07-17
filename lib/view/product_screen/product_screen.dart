@@ -1,3 +1,4 @@
+import 'package:e_shop/controller/providers/auth_provider.dart';
 import 'package:e_shop/controller/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,13 +9,17 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
-      appBar: AppBar(title: Text('Products')),
+      appBar: AppBar(title: const Text('Products'),
+      actions:[ IconButton(onPressed: (){
+        authProvider.logout();
+      }, icon: Icon(Icons.logout_outlined)),]),
       body: FutureBuilder(
         future: productProvider.fetchProducts(),
         builder: (ctx, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
