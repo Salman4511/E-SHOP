@@ -8,16 +8,12 @@ class AuthProvider with ChangeNotifier {
 
   User? get user => _user;
 
-  bool get isAuthenticated => _user != null;
-
   Future<void> signUp(String email, String password, String name) async {
     try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      _user = userCredential.user;
       await FirebaseFirestore.instance.collection('users').doc(_user!.uid).set({
         'name': name,
         'email': email,
@@ -25,21 +21,20 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print(e);
-      throw e;
+      rethrow;
     }
   }
 
   Future<void> login(String email, String password) async {
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+      await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      _user = userCredential.user;
       notifyListeners();
     } catch (e) {
       print(e);
-      throw e;
+      rethrow;
     }
   }
 

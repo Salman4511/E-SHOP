@@ -18,15 +18,15 @@ class ProductsScreen extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
+            final product = snapshot.data;
             return ListView.builder(
-              itemCount: productProvider.products.length,
+              itemCount: product!.products!.length,
               itemBuilder: (ctx, i) {
-                final product = productProvider.products[i];
                 return ListTile(
-                  title: Text(product.title),
+                  title: Text(product.products![i].title??""),
                   subtitle: Text(productProvider.showDiscountedPrice
-                      ? 'Discounted Price: \$${product.discountedPrice}'
-                      : 'Price: \$${product.price}'),
+                      ? 'Discounted Price: \$${product.products![i].discountPercentage}'
+                      : 'Price: \$${product.products![i].price.toString()}'),
                 );
               },
             );
