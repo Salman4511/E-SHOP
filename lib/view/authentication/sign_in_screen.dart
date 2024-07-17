@@ -13,7 +13,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-    final _formkey = GlobalKey<FormState>();
+  final _formkey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
 
@@ -35,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top:180,left: 8,right: 8),
+          padding: const EdgeInsets.only(top: 180, left: 8, right: 8),
           child: Form(
             key: _formkey,
             child: Column(
@@ -43,27 +43,32 @@ class _SignInScreenState extends State<SignInScreen> {
               children: [
                 TextFormWidget(
                   controller: _emailController,
-                  label: 'Email', validationMsg: 'Please enter your email',
+                  label: 'Email',
+                  validationMsg: 'Please enter your email',
                 ),
                 kheight10,
                 TextFormWidget(
                   controller: _passwordController,
                   label: 'Password',
-                  isObscure: true, validationMsg: 'Please enter your password',
+                  isObscure: true,
+                  validationMsg: 'Please enter your password',
                 ),
                 kheight200,
                 ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     if (_formkey.currentState!.validate()) {
-                     _submit ;  
+                      _submit;
                     }
-                    },
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     foregroundColor: kwhite,
-                    padding: const EdgeInsets.symmetric(horizontal: 94, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 94, vertical: 12),
                     textStyle: const TextStyle(
-                        fontSize: 17, color: kwhite, fontWeight: FontWeight.bold),
+                        fontSize: 17,
+                        color: kwhite,
+                        fontWeight: FontWeight.bold),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
