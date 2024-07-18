@@ -19,7 +19,7 @@ class Authpage extends StatelessWidget {
                 return const ProductsScreen();
               } else {
                 return const SignUpScreen();
-              }
+              } 
             }
           }),
     );

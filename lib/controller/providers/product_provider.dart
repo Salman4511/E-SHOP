@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 class ProductProvider with ChangeNotifier {
-  List<ProductModel> _products = [];
+  final List<ProductModel> _products = [];
   bool _showDiscountedPrice = false;
 
   List<ProductModel> get products => _products;
@@ -19,6 +19,7 @@ class ProductProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = json.decode(response.body);
         ProductModel products = ProductModel.fromJson(jsonData);
+        // _fetchRemoteConfig();
         return products;
       } else {
         throw Exception("Failed to fetch products");

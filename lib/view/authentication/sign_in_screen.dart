@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:e_shop/controller/providers/auth_provider.dart';
 import 'package:e_shop/utils/constants.dart';
 import 'package:e_shop/view/authentication/sign_up_screen.dart';
@@ -19,11 +21,21 @@ class _SignInScreenState extends State<SignInScreen> {
 
   final _passwordController = TextEditingController();
 
-  void _submit() {
-    Provider.of<AuthProvider>(context, listen: false).login(
+  Future<void> _submit() async {
+    bool isSuccess =
+        await Provider.of<AuthProvider>(context, listen: false).login(
       _emailController.text,
       _passwordController.text,
     );
+
+    if (isSuccess) {
+      Navigator.pushReplacementNamed(context, 'a');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Login failed. Please check your credentials.')),
+      );
+    }
   }
 
   @override
@@ -57,7 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
-                      _submit;
+                      _submit();
                     }
                   },
                   style: ElevatedButton.styleFrom(

@@ -35,16 +35,17 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> login(String email, String password) async {
+
+  Future<bool> login(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      notifyListeners();
+      return true;
     } catch (e) {
-      print(e);
-      rethrow;
+      print("Error: $e");
+      return false;
     }
   }
 
