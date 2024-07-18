@@ -28,8 +28,8 @@ This is a Flutter-based e-commerce application that showcases products from a pu
 
 1. **Clone the repository**:
  
-   git clone https://github.com/yourusername/ecommerce-app.git
-   cd ecommerce-app
+   git clone https://github.com/Salman4511/E-SHOP.git
+   cd e_shop-app
   
 
 2. **Install dependencies**:
@@ -41,17 +41,9 @@ This is a Flutter-based e-commerce application that showcases products from a pu
    - Enable Firestore, Authentication (Email/Password), and Remote Config.
    - Download `google-services.json` and place it in the `android/app` directory.
 
-4. **Configure Firebase Remote Config**:
-   - Create a boolean parameter named `showDiscountedPrice` and set its default value as `true`.
 
 ### Running the App
 
-- **Android**:
-  
-  flutter run
-
-- **iOS**:
- 
   flutter run
 
 ## Project Structure
